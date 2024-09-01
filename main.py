@@ -44,5 +44,3 @@ while True:
 
     fps.tick(60)
     pg.display.update()
-
-
