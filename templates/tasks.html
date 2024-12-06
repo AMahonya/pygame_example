@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Менеджер задач</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Менеджер задач</h1>
+
+        {% if current_user %}
+            <p>Logged in as: {{ current_user.username }}</p>
+            <a href="/logout" class="btn btn-danger">Logout</a><br><br>
+        {% else %}
+            <a href="/login" class="btn btn-primary">Login</a>
+            <a href="/register" class="btn btn-success">Register</a><br><br>
+        {% endif %}
+
+        <h2>My Tasks</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Description</th>
+                    <th>Due Date</th>
+                    <th>Priority</th>
+                    <th>Completed</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td>{{ task.description }}</td>
+                        <td>{{ task.due_date }}</td>
+                        <td>{{ task.priority }}</td>
+                        <td>{{ task.completed }}</td>
+                        <td>
+                            <a href="/tasks/{{ task.id }}/update" class="btn btn-warning btn-sm">Update</a>
+                            <a href="/tasks/{{ task.id }}/delete" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if not tasks %}
+            <p>No tasks found.</p>
+        {% endif %}
+
+
+        <a href="/tasks/create" class="btn btn-primary">Create Task</a>
+    </div>
+</body>
+</html>
